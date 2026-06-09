@@ -1,0 +1,119 @@
+﻿@using InventoryManagementSystem.BLL.Dto
+@model List<UserDto>
+
+@{
+    ViewData["Title"] = "User Roles Management";
+    Layout = "_InventoryLayout";
+}
+
+<div class="page-wrapper">
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">User Roles Management</h2>
+
+            <div class="table-container">
+                <table class="table table-hover table-responsive-md">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Email</th>
+                            <th>Role Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.Email</td>
+                                <td>@string.Join(", ", user.Roles.ToList())</td>
+                                <td>
+                                    <a asp-action="ManageRoles" asp-route-userId="@user.Id" class="btn btn-success btn-sm">Manage Roles</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts Section -->
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}
+
+<!-- Additional CSS Styles -->
+<style>
+    .main-content {
+        padding: 20px;
+        background-color: #f9fafb;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        font-weight: bold;
+        color: #2d3748;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table {
+        background-color: white;
+        border-radius: 8px;
+        border-collapse: collapse;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+        background-color: #e2e8f0;
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table td a {
+        margin-right: 10px;
+    }
+
+    .btn {
+        padding: 5px 15px;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-success:hover {
+            background-color: #007bff;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f7fafc;
+    }
+
+    @@media (max-width: 768px) {
+        .table th, .table td {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+    }
+</style>

@@ -1,0 +1,94 @@
+﻿@model InventoryManagementSystem.BLL.Dto.LoginDto
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Login</title>
+    <link rel="stylesheet" href="~/css/LogIn.css">
+    <style>
+        /* تعديل لعنصر حقل كلمة المرور مع الأيقونة */
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Side (Graphic / Branding Area) -->
+        <div class="left-side">
+            <h1>Manage Your Inventory</h1>
+            <p>Efficient, Reliable, and Fast</p>
+        </div>
+
+        <!-- Right Side (Login Form) -->
+        <div class="right-side">
+            <div class="login-container">
+                <h2>Login to Inventory System</h2>
+
+                <form asp-action="Login" method="post" class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" type="email" id="email" placeholder="Enter your email address" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                    <label asp-for="Password"></label>
+
+                    <!-- حقل الباسورد مع أيقونة العين -->
+                    <div class="password-container">
+                        <input asp-for="Password" type="password" id="password" placeholder="Enter your password" required />
+                        <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember Me</label>
+                    </div>
+
+                    <a href="/Account/ChangePassword" class="forgot-password">Forgot Password?</a>
+
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+
+                <div class="divider">OR</div>
+
+                <button class="create-account-btn" onclick="window.location.href='/Account/Register'">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var passwordType = passwordField.getAttribute("type");
+
+            if (passwordType === "password") {
+                passwordField.setAttribute("type", "text");
+            } else {
+                passwordField.setAttribute("type", "password");
+            }
+        }
+    </script>
+
+</body>
+</html>

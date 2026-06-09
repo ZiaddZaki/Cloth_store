@@ -1,0 +1,244 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body, html {
+    height: 100%;
+    background-color: #f0f2f5;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.left-side {
+    flex: 1;
+    background: linear-gradient(135deg, #003366, #005f99);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+    .left-side h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .left-side p {
+        font-size: 1.4rem;
+        opacity: 0.9;
+    }
+
+    .left-side:hover h1 {
+        transform: scale(1.1);
+    }
+
+.right-side {
+    flex: 1;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .login-container:hover {
+        box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-container h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #333;
+    }
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    text-align: left;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+input {
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+    input:hover {
+        background-color: #e9ecef;
+    }
+
+    input:focus {
+        border-color: #005f99;
+        background-color: #f0f2f5;
+    }
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #005f99;
+    text-decoration: none;
+}
+
+    .forgot-password:hover {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+.login-btn, .create-account-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.login-btn {
+    background-color: #005f99;
+    color: white;
+}
+
+    .login-btn:hover {
+        background-color: #003366;
+        transform: translateY(-2px);
+    }
+
+.create-account-btn {
+    background-color: transparent;
+    color: #005f99;
+    border: 2px solid #005f99;
+}
+
+    .create-account-btn:hover {
+        background-color: #005f99;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+.divider {
+    margin: 20px 0;
+    color: #ccc;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+    .divider::before, .divider::after {
+        content: "";
+        width: 40%;
+        height: 1px;
+        background-color: #ccc;
+        position: absolute;
+        top: 50%;
+    }
+
+    .divider::before {
+        left: 0;
+    }
+
+    .divider::after {
+        right: 0;
+    }
+
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side, .right-side {
+        height: 50vh;
+        padding: 20px;
+    }
+
+    .login-container {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .left-side h1 {
+        font-size: 2.5rem;
+    }
+
+    .left-side p {
+        font-size: 1.1rem;
+    }
+
+    .login-container {
+        padding: 20px;
+    }
+
+    input {
+        font-size: 0.9rem;
+    }
+
+    .login-btn, .create-account-btn {
+        padding: 14px;
+        font-size: 1.1rem;
+    }
+
+    .Log-Out {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.divider {
+    margin: 20px 0;
+    color: #aaa; /* لون الخط */
+    font-size: 0.9rem;
+    position: relative;
+    text-align: center; /* لتوسيط النص */
+}
+
+    .divider::before, .divider::after {
+        content: "";
+        width: 40%;
+        height: 1px;
+        background-color: #ccc; /* لون الخط */
+        position: absolute;
+        top: 50%; /* لمحاذاة الخط في المنتصف */
+    }
+
+    .divider::before {
+        left: 0;
+    }
+
+    .divider::after {
+        right: 0;
+    }

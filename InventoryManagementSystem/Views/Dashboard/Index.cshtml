@@ -1,0 +1,230 @@
+﻿@model InventoryManagementSystem.BLL.Dto.DashboardDto;
+
+@{
+    Layout = "_InventoryLayout"; // Reference the layout file with the sidebar
+}
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    .land {
+        width: 1050px
+    }
+    /* Container for the main content */
+    .main-content {
+        padding: 20px;
+        background-color: #f3f4f6;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    /* Dashboard cards layout */
+    .dashboard-cards {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 20px;
+        width: 100%;
+    }
+
+    /* Header styles */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .header h1 {
+            font-size: 1.5em;
+            color: #000000;
+        }
+
+    /* User profile in the header */
+    .user-profile {
+        display: flex;
+        align-items: center;
+        font-size: 1em;
+        color: #333;
+    }
+
+        .user-profile span {
+            margin-right: 10px;
+        }
+
+    /* Card styling */
+    .card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        flex: 1 1 200px; /* Allow it to grow, with a minimum width of 200px */
+        min-width: 200px;
+    }
+
+        .card h2 {
+            font-size: 1.2em;
+            color: #3C91E6;
+        }
+
+        .card p {
+            font-size: 1em;
+            color: #9ca3af;
+        }
+
+    /* Recent activity table */
+    .recent-activity {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+
+        .recent-activity h2 {
+            font-size: 1.2em;
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+
+        .recent-activity table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .recent-activity table th,
+            .recent-activity table td {
+                padding: 12px 15px;
+                text-align: left;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .recent-activity table th {
+                background-color: #235485;
+                color: #ffffff;
+            }
+
+            .recent-activity table tr:last-child td {
+                border-bottom: none;
+            }
+
+    .notification {
+        font-size: 20px;
+        position: relative;
+    }
+
+        .notification .num {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--light);
+            background: var(--red);
+            color: var(--light);
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+</style>
+
+
+<!-- Header -->
+<header class="header">
+    <h1>Dashboard</h1>
+
+    <a asp-controller="Stock" asp-action="Index" class="notification">
+        <i class='bx bxs-bell'></i>
+        <span class="num">@Model.LowStockItems</span>
+    </a>
+</header>
+
+<section class="dashboard-cards">
+    <div class="card">
+        <h2>
+            <i class='bx bxs-doughnut-chart'></i>
+            Products
+        </h2>
+        <p>Total: @Model.TotalItems</p>
+    </div>
+    <div class="card">
+        <h2>
+            <i class='bx bxs-shopping-bag-alt'></i>
+            Categories
+        </h2>
+        <p>Total: @Model.CategoryCount</p>
+    </div>
+    <div class="card">
+        <h2>
+            <i class='bx bxs-group'></i>
+            Users
+        </h2>
+        <p>Total: @Model.UsersCount</p>
+    </div>
+    <div class="card">
+        <h2>
+            <i class='bx bxs-cog'></i>
+            Low Stock
+        </h2>
+        <p>Total: @Model.LowStockItems</p>
+    </div>
+</section>
+
+<section class="recent-activity">
+    <h2>Recent Activity</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Activity</th>
+                <th>Date & Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var activity in Model.RecentActivities)
+            {
+                <tr>
+                    <td>@activity.Description</td>
+                    <td>@activity.Date.ToString("yyyy-MM-dd HH:mm tt")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+
+<script type="text/javascript">
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/stockHub")
+        .build();
+
+    connection.on("ReceiveNotification", function (message) {
+        var notificationBar = document.getElementById('notification-bar');
+        notificationBar.innerHTML = "<div class='alert alert-warning'>" + message + "</div>";
+    });
+
+    connection.start().catch(function (err) {
+        return console.error(err.toString());
+    });
+</script>
+
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('show');
+    }
+</script>
